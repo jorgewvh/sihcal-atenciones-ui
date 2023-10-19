@@ -1,0 +1,3 @@
+﻿TipoSucursal,NombreComercial,Direccion,PuntosGeoLocalizacion,Municipio,PermisoOperacion,FechaVencimientoPermisoOperacion,FechaInicioPermisoOperacion,RTN,NombreGerente,TipoIdentificacionGerente,NumeroIdentificacionGerente,NumeroTelefonoGerente
+SUCURSAL,El nombre,La direccion,"1,122,364,444",TGU,8i88acx,2022-12-12,2022-01-12,90887776,Sam Luke Sky,DNI,1010101122,89898989
+SUCURSAL,Otro nombre,La direccion,"1,122,364,444",TGU,ABC568766,2022-10-10,2022-01-12,90876765,Sam Luke Sky,DNI,1010101122,90785645

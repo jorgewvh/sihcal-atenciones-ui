@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Comprobante de Inscripción</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 10px 10px;
+    }
+
+.font-arial{
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-weight: bold !important;
+    margin-left: 3rem !important;
+    margin-right: 3rem !important;
+}
+.paragraph{
+    font-size: 14px !important;
+	font-family:"Inter", Helvetica, sans-serif !important;
+}
+.little-paragraph{
+    font-size: 12px !important;
+}
+
+.xs-paragraph{
+    font-size: 8px !important;
+}
+label {
+	cursor: pointer;
+	color: rgb(252, 252, 252);
+	display:grid;
+	padding: 5px;
+	margin: 3px;
+	font-size: 130%;
+	font-family:"Pluto Sans Bold", Helvetica, sans-serif;
+	background-color: #00d4dd;
+	border-radius: 5px;
+	font-weight: 25px;
+}
+
+span{
+	font-family:"Pluto Sans Bold", Helvetica, sans-serif !important;
+	input {
+		font-family:"Inter", Helvetica, sans-serif !important;
+	}
+}
+
+.text-bold{
+	font-weight: bold;
+}
+
+
+.col-lg-1 > input[type="checkbox"]{
+	background-color: #759997;
+}
+
+.padding-margin{
+	margin-top: 3rem !important;
+    padding-right: calc($spacer * 3) !important;
+	padding-left: calc($spacer *3) !important;
+}
+
+    img{
+    img: url(../../img/logoeditablesecretaria-01.png);
+    height: 110px;
+  }
+
+  </style>
+</head>
+<body>
+<!-- header-title -->
+<div clas="col-sm-12 col-lg-6">
+  <div class="d-flex flex-row justify-content-between cdp-doc-header-title">
+    <div class="cdp-doc-header-title-logo">
+      <img src="logoeditablesecretaria-01.png" class="img img-fluid">
+    </div>
+    <!-- title and subTitle -->
+    <div class="d-flex flex-column align-self-center ">
+      <div class="d-flex flex-row justify-content-center cdp-doc-header-title-text fw-bold fs-2 font-arial">
+        COMPROBANTE DE INSCRIPCIÓN
+      </div>
+      <div class="d-flex flex-row justify-content-center cdp-doc-header-subtitle-text fw-bold fs-2 font-arial">
+        REGISTRO NACIONAL SIMPLIFICADO DE PATRONOS
+      </div>
+    </div>
+    <div class="cdp-doc-header-title-logo w-25">
+      <!--img src="logoeditablesecretaria-01.png" class="img img-fluid"-->
+    </div>
+  </div>
+</div>
+<!--end header title-->
+
+    <!-- DATOS GENERALES-->
+    <p></p>
+    <div class="row">
+      <div class="col-lg-6">
+        <p><span class="fw-bold">RTN
+            <input class="form-control" type="text" value={{comprobanteForm.rtn}}>
+          </span></p>
+      </div>
+      <div class="col-lg-6">
+        <p><span class="fw-bold">Número de Identificación
+            <input class="form-control" type="text" value="">
+          </span></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <p><span class="fw-bold">Nombre o razón social
+            <input class="form-control" type="text" value="{{comprobanteForm.legalName}}">
+          </span></p>
+      </div>
+      <div class="col-lg-6">
+        <p><span class="fw-bold">Nombre Comercio
+            <input class="form-control" type="text" value="{{comprobanteForm.commercialName}}">
+          </span></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <p><span class="fw-bold">Dirección Casa Matriz u Oficina Principal
+          <input class="form-control" type="text" value="{{comprobanteForm.headquartersAddress}}">
+        </span></p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Correo Electrónico
+            <input class="form-control" type="text" value="{{comprobanteForm.emailPatronosEmpleadores}}">
+          </span></p>
+      </div>
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Número Teléfonico Fijo
+            <input class="form-control" type="text" value="{{comprobanteForm.phonePatronosEmpleadores}}">
+          </span></p>
+      </div>
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Número Teléfonico Móvil
+            <input class="form-control" type="text" value="{{comprobanteForm.mobilePhonePatronosEmpleadores}}">
+          </span></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <p><span class="fw-bold">Actividad Económica
+            <input class="form-control" type="text" value="{{comprobanteForm.economicActivity}}">
+          </span></p>
+      </div>
+      <div class="col-lg-3">
+        <span class="fw-bold">Ciclos Productivos</span>
+        <p class="mt-3"><span class="fw-bold">Sí
+            <input class="form-check-input" type="radio" value="{{comprobanteForm.productiveCicles}}">
+          </span>
+          <span class="fw-bold px-5">No
+            <input class="form-check-input" type="radio" value="{{comprobanteForm.productiveCicles}}">
+          </span>
+        </p>
+
+      </div>
+      <div class="col-lg-3">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <p><span class="fw-bold">Cantidad Trabajadores Permanentes
+            <input class="form-control" type="text" value="{{comprobanteForm.permanentEmployeeQty}}">
+          </span></p>
+      </div>
+      <div class="col-lg-6">
+        <p><span class="fw-bold">Cantidad de Trabajadores Temporales
+            <input class="form-control" type="text" value="{{comprobanteForm.temporaryEmployeeQty}}">
+          </span></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Número de Trabajadores
+            <input class="form-control" type="text" value="{{comprobanteForm.employeesQty}}">
+          </span></p>
+      </div>
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Matricula Registro Mercantil
+            <input class="form-control" type="text" value="{{comprobanteForm.plateRegistroMercantilNumber}}">
+          </span></p>
+      </div>
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Fecha Constitución
+            <input class="form-control" type="text" value="{{comprobanteForm.registrationDate}}">
+          </span></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Permiso Operaciones
+            <input class="form-control" type="text" value="{{comprobanteForm.operationsLicenseNumber}}">
+          </span></p>
+      </div>
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Fecha de Emisión-Inicio
+            <input class="form-control" type="text" value="{{comprobanteForm.operationsLicenseStartDate}}">
+          </span></p>
+      </div>
+      <div class="col-lg-4">
+        <p><span>
+          </span></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Nº Patronal del INFOP
+            <input class="form-control" type="text" value="{{comprobanteForm.employerInfopNumber}}">
+          </span></p>
+      </div>
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Nº Patronal del IHSS
+            <input class="form-control" type="text" value="{{comprobanteForm.employerIhssNumber}}">
+          </span></p>
+      </div>
+      <div class="col-lg-4">
+        <p><span class="fw-bold">Número Afiliación del RAP
+            <input class="form-control" type="text" value="{{comprobanteForm.employerRapNumber}}">
+          </span></p>
+      </div>
+    </div>
+    <!-- End DATOS GENERALES-->
+
+ <!-- LABEL DOCUMENTOS ADJUNTOS-->
+ <div class="row">
+  <div class="col-lg-12">
+    <label>Datos Generales de la Empresa o Patrono</label>
+  </div>
+</div>
+<!--END LABEL DOCUMENTOS ADJUNTOS-->
+
+  <!-- DATOS DOCUMENTOS ADJUNTOS-->
+  <p></p>
+  <div class="row">
+    <div class="col-lg-3">
+      <p><span class="fw-bold">Número Afiliación del RAP
+
+        </span></p>
+    </div>
+    <div class="col-lg-1">
+      <input class="form-check-input" type="checkbox">
+    </div>
+    <div class="col-lg-3">
+      <p><span class="fw-bold">Testimonio de Escritura Pública
+        </span></p>
+    </div>
+    <div class="col-lg-1">
+      <input class="form-check-input" type="checkbox">
+    </div>
+    <div class="col-lg-3">
+      <p><span class="fw-bold">Número Patronal de IHSS
+
+        </span></p>
+    </div>
+    <div class="col-lg-1">
+      <input class="form-check-input" type="checkbox">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <p><span class="fw-bold">Matricula de Registro Mercantil
+        </span></p>
+    </div>
+    <div class="col-lg-1">
+      <input class="form-check-input" type="checkbox">
+    </div>
+    <div class="col-lg-3">
+      <p><span class="fw-bold">Permiso de Operaciones
+
+        </span></p>
+    </div>
+    <div class="col-lg-1">
+      <input class="form-check-input" type="checkbox">
+    </div>
+    <div class="col-lg-3">
+      <p><span class="fw-bold">Número Patronal del INFOP
+
+        </span></p>
+    </div>
+    <div class="col-lg-1">
+      <input class="form-check-input" type="checkbox">
+    </div>
+  </div>
+
+  <!-- END DOCUMENTOS ADJUNTOS-->
+
+  <!-- LABEL DATOS LOCALIZACION-->
+  <div class="row">
+    <div class="col-lg-12">
+      <label>Datos de Localización</label>
+    </div>
+  </div>
+  <!-- END LABEL DATOS LOCALIZACION-->
+
+ <!-- DATOS LOCALIZACION-->
+ <p></p>
+ <div class="row">
+   <div class="col-lg-6">
+     <p><span class="fw-bold">Departamento
+         <input class="form-control" type="text">
+       </span></p>
+   </div>
+   <div class="col-lg-6">
+     <p><span class="fw-bold">Municipio
+         <input class="form-control" type="text">
+       </span></p>
+   </div>
+ </div>
+ <!-- END DATOS LOCALIZACION -->
+
+ <!-- LABEL DATOS RELACION LEGAL-->
+ <div class="row">
+  <div class="col-lg-12">
+    <label>Datos Relación Legal</label>
+  </div>
+</div>
+<!-- END LABEL DATOS RELACION LEGAL-->
+
+   <!-- DATOS RELACION LEGAL-->
+   <p></p>
+   <div class="row">
+     <div class="col-lg-4">
+       <p><span class="fw-bold">Nombre Representante Legal
+           <input 
+           class="form-control" 
+           type="text"
+           value="{{comprobanteForm.fullNameLegalPeople}}">
+         </span></p>
+     </div>
+     <div class="col-lg-4">
+       <p><span class="fw-bold">Número de Identificación
+           <input 
+           class="form-control" 
+           type="text"
+           value="{{comprobanteForm.identificationNumberLegalPeople}}">
+         </span></p>
+     </div>
+     <div class="col-lg-4">
+       <p><span class="fw-bold">Número Teléfonico Movil
+           <input
+            class="form-control" 
+            type="text"
+            value="{{comprobanteForm.phoneNumberLegalPeople}}">
+         </span></p>
+     </div>
+   </div>
+
+   <div class="row">
+     <div class="col-lg-4">
+       <p><span class="fw-bold">Nombre de Contacto Adicional
+           <input 
+           class="form-control" 
+           type="text"
+           value="{{comprobanteForm.fullNameContactPerson}}">
+         </span></p>
+     </div>
+     <div class="col-lg-4">
+       <p><span class="fw-bold">Correo Electrónico
+           <input 
+           class="form-control" 
+           type="text"
+           value="{{comprobanteForm.emailContactPerson}}">
+         </span></p>
+     </div>
+     <div class="col-lg-4">
+       <p><span class="fw-bold">Número Teléfonico Movil
+           <input 
+           class="form-control" 
+           type="text"
+           value="{{comprobanteForm.phoneNumberContactPerson}}">
+         </span></p>
+     </div>
+   </div>
+   <!-- END DATOS RELACION LEGAL-->
+
+    <!-- footer notes -->
+    <p></p>
+    <div class="small-font-size-text fw-bold">
+      <p>El registro procedera cuando se presentan los requisitos obligatorios, sin perjucio de brindar la información
+        del cumplimiento de los demás requisitos.
+        La anterior informacion es confidencial y unicamente puede ser utilizada para aplicar la ley de inspección y el
+        reglamento de inspección de trabajo, sin perjucio de los que establezcan otras leyes de la República en materia
+        de uso y acceso a la información.
+      </p>
+      <p></p>
+      <p>Tegucigalpa M.D.C a los días_________ del mes_____________ del año____________</p>
+      <p></p>
+      <div *ngIf="" class="row">
+        <p class="little-paragraph">"Estimado usuario la información de su registro debe ser completado para tener sus
+          datos actualizados, cuenta con 6 meses a partir de la fecha de emisión del presente
+          documento para registrar su información faltante"
+        </p>
+      </div>
+      <p class="d-flex flex-row justify-content-center cdp-doc-header-title-text fw-bold ">
+        ____________________________________________</p>
+      <h5 class="d-flex flex-row justify-content-center cdp-doc-header-title-text fw-bold ">
+
+        Firma Director General de Inspección del Trabajo
+      </h5>
+
+      <div class="d-flex flex-column align-items-end">
+        <p class="xs-paragraph">Versión 2 Comprobante de Inscripción Registro Simplificado de Patronos</p>
+      </div>
+
+    </div>
+    <!-- end footer notes -->
+</body>
+</html>
+

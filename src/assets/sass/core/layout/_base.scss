@@ -1,0 +1,59 @@
+html {
+  font-family: sans-serif;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-size: $root-font-size !important;
+    font-weight: $font-weight-base;
+    font-family: 'Inter', sans-serif;
+    // Tablet mode
+    @include media-breakpoint-down(lg) {
+        font-size: $root-font-size-lg !important;
+    }
+
+    // Mobile mode
+    @include media-breakpoint-down(md) {
+        font-size: $root-font-size-md !important;
+    }
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    a:hover,
+    a:active,
+    a:focus {
+        text-decoration: none !important;
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    color: $body-color;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: 'Pluto Sans Bold', sans-serif;
+}
+.btn{
+  font-family: 'Pluto Sans Bold', sans-serif;
+}
+
+.stepper-title{
+  font-family: 'Inter', sans-serif;
+}
+
+// Angular integration
+router-outlet {
+    display: none;
+}
+
+canvas {
+    user-select: none;
+}
+

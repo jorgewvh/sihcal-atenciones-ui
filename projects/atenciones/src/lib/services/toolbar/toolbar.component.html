@@ -1,0 +1,211 @@
+<div
+  id="kt_toolbar_container"
+  [ngClass]="toolbarContainerCssClasses"
+  class="d-flex flex-stack flex-wrap"
+>
+
+  <!--
+    [ngClass]="toolbarContainerCssClasses"
+  <app-page-title
+    #ktPageTitle
+    class="page-title d-flex"
+    [ngClass]="pageTitleCssClasses"
+  ></app-page-title>
+  --->
+  <div class="page-title d-flex flex-column">
+    <ng-container *ngIf="pageType == 1">
+      <h2 class="text-white fw-bolder">Registro de Solicitud</h2>
+      <div class="d-flex">
+        <ol class="breadcrumb text-muted fs-6 fw-semibold">
+          <li class="breadcrumb-item"><a routerLink="/inspeccion/solicitudes-inspeccion" class="text-white fw-bolder">
+            Gestión de Solicitudes de Inspección</a></li>
+            <li class="breadcrumb-item text-muted">Registro de Solicitud</li>
+        </ol>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="pageType == 0">
+      <h2 class="text-white fw-bolder">Gestión de Solicitudes de Inspección</h2>
+      <div class="d-flex">
+        <ol class="breadcrumb text-muted fs-6 fw-semibold">
+          <li class="breadcrumb-item"><a routerLink="/inspeccion" class="text-white fw-bolder">
+            Inicio</a></li>
+            <li class="breadcrumb-item">Gestión de Solicitudes de Inspección</li>
+        </ol>
+      </div>
+    </ng-container>
+  </div>
+
+
+
+  <div class="d-flex flex-column align-items-end justify-content-between py-3 py-md-1">
+    <h6 class="text-white" style="font-weight: 700; text-transform:uppercase;" >{{getCurrentDateTime}}</h6>
+    <ng-container *ngIf="pageType == 1">
+      <div class="d-flex align-items-center justify-content-between">
+        <!-- <select [(ngModel)]="contractType" (change)="getContractType($event)" class="form-select m-3 w-150px btn-bg-white">
+          <option *ngFor="let item of terminationContractualArray"
+          [value]="item.value">{{item.label === 'DESPIDO' ? 'Despido' : 'Renuncia' }}</option>
+        </select>-->
+        <!-- Toolbar publica -->
+          <!-- <select id="toolbar" class="form-select btn-bg-white"
+          [(ngModel)]="personType"
+          [disabled]="disablePersonType"
+          (change)="getPersonType($event)">
+            <option *ngFor="let item of personTypeArray"
+            [value]="item.value">{{getNewLabelPersonType(item.label)}}</option>
+          </select> -->
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Toolbar para gestion de patronos -->
+  <ng-container *ngIf="pageType == 0">
+    <div class="d-flex flex-column w-100">
+      <div class="d-flex flex-row justify-content-between">
+
+        <!-- Barra de busqueda -->
+        <div class="mr-auto p-5 w-md-400px position-relative">
+          <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+          <span class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+          <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
+          </svg>
+          </span>
+          <!--end::Svg Icon-->
+          <input #search type="text" class="form-control form-control-solid ps-10" name="search" (change)="sendSearch(search.value)" placeholder="Buscar Empresa">
+        </div>
+
+        <!-- Filtro y nueva empresa -->
+        <div class="d-flex flex-row">
+          <div class="p-5" ngbDropdown placement="bottom-end">
+            <button class="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-primary fw-bold me-5" id="filterBtn"  ngbDropdownToggle>
+                <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
+                <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor"></path>
+                  </svg>
+                </span>Filtrar
+                <!--end::Svg Icon-->
+            </button>
+
+            <!-- Menu del filtro -->
+            <div ngbDropdownMenu class="menu menu-sub w-250px w-md-300px">
+              <!--begin::Header-->
+              <div class="px-7 py-5">
+                  <div class="fs-5 text-dark fw-bold">Opciones del filtro</div>
+              </div>
+              <!--end::Header-->
+
+              <!--begin::Menu separator-->
+              <div class="separator border-gray-200"></div>
+              <!--end::Menu separator-->
+
+              <!--begin::Form-->
+              <div class="px-7 py-5">
+                  <!--begin::Input group-->
+                  <div class="mb-10">
+                      <!--begin::Label-->
+                      <label class="form-label fw-semibold">Cantidad de establecimientos:</label>
+                      <!--end::Label-->
+
+                      <!--begin::Input-->
+                      <input type="text" class="form-control form-control-solid p-1"/>
+                      <!--end::Input-->
+                  </div>
+                  <!--end::Input group-->
+
+                  <!--begin::Input group-->
+                  <div class="mb-10">
+                      <!--begin::Label-->
+                      <label class="form-label fw-semibold">Tipo de establecimientos:</label>
+                      <!--end::Label-->
+
+                      <!--begin::Options-->
+                      <div class="d-flex">
+                          <!--begin::Options-->
+                          <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                              <input class="form-check-input" type="checkbox" value="1">
+                              <span class="form-check-label">
+                                  Sucursal
+                              </span>
+                          </label>
+                          <!--end::Options-->
+
+                          <!--begin::Options-->
+                          <label class="form-check form-check-sm form-check-custom form-check-solid">
+                              <input class="form-check-input" type="checkbox" value="2" checked="checked">
+                              <span class="form-check-label">
+                                  Agencia
+                              </span>
+                          </label>
+                          <!--end::Options-->
+                      </div>
+                      <!--end::Options-->
+                  </div>
+                  <!--end::Input group-->
+
+                  <!--begin::Input group-->
+                  <div class="mb-10">
+                      <!--begin::Label-->
+                      <label class="form-label fw-semibold">Departamento:</label>
+                      <!--end::Label-->
+
+                      <!--begin::Select-->
+                      <div>
+                        <select class="form-select form-select-solid" placeholder="Seleccione una opción" data-allow-clear="true">
+                            <option></option>
+                            <option value="1">Approved</option>
+                            <option value="2">Pending</option>
+                            <option value="2">In Process</option>
+                            <option value="2">Rejected</option>
+                        </select>
+
+                    </div>
+                      <!--end::Select-->
+                  </div>
+                  <!--end::Input group-->
+
+                  <!--begin::Input group-->
+                  <div class="mb-10">
+                    <!--begin::Label-->
+                    <label class="form-label fw-semibold">Municipios:</label>
+                    <!--end::Label-->
+
+                    <!--begin::Select-->
+                    <div>
+                      <select class="form-select form-select-solid" placeholder="Seleccione una opción" data-allow-clear="true">
+                          <option></option>
+                          <option value="1">Approved</option>
+                          <option value="2">Pending</option>
+                          <option value="3">In Process</option>
+                          <option value="4">Rejected</option>
+                      </select>
+
+                  </div>
+                    <!--end::Select-->
+                </div>
+                <!--end::Input group-->
+
+                  <!--begin::Actions-->
+                  <div class="d-flex justify-content-end">
+                      <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" >Cancelar</button>
+
+                      <button type="submit" class="btn btn-sm btn-primary">Buscar</button>
+                  </div>
+                  <!--end::Actions-->
+              </div>
+              <!--end::Form-->
+          </div>
+          </div>
+          <div class="p-5">
+            <a
+              routerLink="/patrono-empleador/nuevo"
+              class="btn btn-primary"
+              >
+              Nueva Empresa
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

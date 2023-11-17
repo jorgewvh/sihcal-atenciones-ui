@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 const Routing: Routes = [
   {
-    path: "indicadores",
+    path: "atenciones",
     loadChildren: () => import('../modules/proxy/proxy.module').then(m => m.ProxyModule)
   },
   {
@@ -11,7 +11,7 @@ const Routing: Routes = [
   },
   {
     path: '',
-    redirectTo: '/indicadores',
+    redirectTo: '/atenciones',
     pathMatch: 'full',
   },
   {

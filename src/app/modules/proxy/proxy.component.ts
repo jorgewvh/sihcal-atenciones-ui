@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ecms-proxy',
-  template: '<lib-atenciones></lib-atenciones>',
+  selector: 'lib-atenciones',
+  template: '<lib-registro-atenciones-page></lib-registro-atenciones-page>',
   styleUrls: ['./proxy.component.scss']
 })
 export class ProxyComponent implements OnInit {

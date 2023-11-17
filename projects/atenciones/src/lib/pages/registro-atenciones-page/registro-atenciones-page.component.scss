@@ -1,0 +1,96 @@
+@import '../../../../../../src/assets/sass/core/components/variables';
+.container-xxl {
+  padding: 0px !important;
+}
+
+.stepper-title {
+    font-size: 16px !important;
+}
+
+.is-valid {
+    border: 1px solid $success;
+}
+
+.is-invalid {
+    border: 1px solid $danger;
+}
+
+.text-danger{
+    color: $danger;
+}
+
+.three-dots :hover{
+    color: $primary;
+}
+
+.visualizar {
+    color: #EAB342;
+}
+
+.eliminar {
+    color: #DB473C;
+}
+
+.editar {
+    color: #009EF7;
+
+}
+
+.auditoria {
+    color: #D46C30;
+}
+
+.inspectionrequest {
+    color: #0080FF;
+}
+
+.overlay{
+    position: absolute;
+    background-color: rgba($primary, .9);
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    div{
+        text-align: center;
+        .loader-recalulo {
+            width: 68px;
+            height: 68px;
+            border: 10px solid;
+            border-color: #DB473C transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1.5s linear infinite;
+        }
+        h4{
+            margin-top: 1rem;
+            color: white;
+            font-size: 2rem;
+        }
+    }
+}
+
+.active-overlay{
+    display: flex;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.dropdown-toggle::after {
+    display:none;
+}
+
+.statusColor {
+    color: #4CB944;
+}

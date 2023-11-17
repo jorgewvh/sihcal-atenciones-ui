@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-atenciones',
-  template: '<sihcal-auditoria-page></sihcal-auditoria-page>',
+  template: '<lib-registro-atenciones-page></lib-registro-atenciones-page>',
   styles: [
   ]
 })
-export class AuditoriaComponent implements OnInit {
+export class AtencionesComponent implements OnInit {
 
   constructor() { }
 

@@ -1,0 +1,631 @@
+
+<div *ngIf="isShowGrid" class="toolbar py-5 py-lg-15 px-0 d-flex flex-column">
+    <div id="kt_toolbar_container" class="w-100 d-flex justify-content-between">
+        <div class="page-title d-flex">
+          <h2 class="text-white fw-bolder">Registro de Atenciones</h2>
+        </div>
+
+        <div class="d-flex flex-column align-items-end py-3 py-md-1">
+          <h6 class="text-white" style="font-weight: 700; text-transform:uppercase;" >{{getCurrentDateTime}}</h6>
+        </div>
+
+      </div>
+
+      <div id="breadcrumbs" class="w-100 d-flex justify-content-between">
+        <div class="page-title d-flex">
+          <ol class="breadcrumb text-muted fs-6 fw-semibold">
+            <li class="breadcrumb-item"><a href="#" class="text-white fw-bolder">
+              Inicio</a></li>
+            <!-- <li class="breadcrumb-item"><a href="#" class="">Library</a></li>
+            <li class="breadcrumb-item text-muted">Active</li> -->
+          </ol>
+        </div>
+
+      </div>
+
+      <ng-container>
+        <div id="page_actions" class="w-100 d-flex justify-content-between">
+                <div class="d-flex">
+                    <div class="mr-auto p-5 w-md-400px position-relative">
+                        <span style="top:37px;" class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute translate-middle ms-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+                            <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
+                            </svg>
+                        </span>
+
+                        <input #search type="text" class="form-control form-control-solid ps-10" name="search" (change)="sendSearch(search.value)" placeholder="Buscar Solicitante">
+                    </div>
+
+                    <div [formGroup]="formFilterToolbar">
+                    <div ngbDropdown class="py-5">
+                        <button class="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-primary fw-bold" id="filterBtn"  ngbDropdownToggle>
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
+                            <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor"></path>
+                            </svg>
+                            </span>Filtrar
+                            <!--end::Svg Icon-->
+                        </button>
+
+                            <div ngbDropdownMenu class="menu menu-sub w-250px w-md-300px">
+                                <div class="px-7 py-5" >
+                                    <div class="fs-5 text-dark fw-bold">Opciones del filtro</div>
+                                </div>
+
+                                <div class="separator border-gray-200"></div>
+
+                                <div class="px-7 py-5">
+                                    <div class="mb-10">
+                                        <!--begin::Label-->
+                                        <label class="form-label fw-semibold">Tipo de Ciudadano:</label>
+
+                                        <!--end::Label-->
+
+                                        <!--begin::Select-->
+                                        <div>
+                                            <select
+                                            [(ngModel)]="personType"
+                                            formControlName="filterApplicant"
+                                            [class.is-Valid]="isValidField('filterApplicant')"
+                                            [class.is-Invalid]="isInvalidField('filterApplicant')"
+                                            (change)="validatePersonType($event)"
+                                            class="form-select form-select-solid">
+                                            <option *ngFor="let item of applicantTypes"
+                                            [value]="item.value">{{item.label}}</option>
+                                            </select>
+                                        </div>
+                                        <!--end::Select-->
+                                    </div>
+
+                                    <div class="mb-10">
+                                        <!--begin::Label-->
+                                        <label class="form-label fw-semibold">Tipo de Atención:</label>
+                                        <!--end::Label-->
+
+                                        <!--begin::Select-->
+                                        <div>
+                                            <ng-select
+                                            [(ngModel)]="seletedAttentionTypes"
+                                            formControlName="filterAttention"
+                                            [class.is-valid]="isValidField('filterAttention')"
+                                            [class.is-invalid]="isInvalidField('filterAttention')"
+                                            class="form-control form-control-solid">
+                                            <ng-option *ngFor="let attention of attentionTypes" [value]="attention.id">{{attention.name}}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                        <!--end::Select-->
+                                    </div>
+
+                                    <div class="d-flex justify-content-end">
+                                        <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" >Limpiar</button>
+
+                                        <button  class="btn btn-sm btn-primary">Buscar</button>
+                                    </div>
+
+                                </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Exportar y nueva empresa -->
+                <div class="d-flex">
+                    <div class="p-5">
+                    <button class="btn btn-primary m-5 p-2" (click)="openModal(exportModal)">
+                        <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M12.375 5.0625L12.375 16.3125C12.375 16.9338 12.8787 17.4375 13.5 17.4375C14.1213 17.4375 14.625 16.9338 14.625 16.3125L14.625 5.0625C14.625 4.44118 14.1213 3.9375 13.5 3.9375C12.8787 3.9375 12.375 4.44118 12.375 5.0625Z" fill="#EBEFF1"/>
+                        <path d="M13.1543 15.3352L11.5084 13.36C11.0676 12.8311 10.2677 12.7948 9.78079 13.2817C9.34236 13.7202 9.32168 14.4243 9.73359 14.8878L12.6592 18.179C13.1067 18.6825 13.8933 18.6825 14.3409 18.179L17.2664 14.8878C17.6784 14.4243 17.6577 13.7202 17.2193 13.2817C16.7324 12.7948 15.9324 12.8311 15.4916 13.36L13.8457 15.3352C13.6659 15.5511 13.3342 15.5511 13.1543 15.3352Z" fill="#EBEFF1"/>
+                        <path opacity="0.5" d="M5.625 9L6.75 9C7.37131 9 7.875 9.50366 7.875 10.125C7.875 10.7463 7.37131 11.25 6.75 11.25C6.12868 11.25 5.625 11.7537 5.625 12.375L5.625 20.25C5.625 20.8713 6.12869 21.375 6.75 21.375L20.25 21.375C20.8713 21.375 21.375 20.8713 21.375 20.25L21.375 12.375C21.375 11.7537 20.8713 11.25 20.25 11.25C19.6287 11.25 19.125 10.7463 19.125 10.125C19.125 9.50366 19.6287 9 20.25 9L21.375 9C22.6177 9 23.625 10.0073 23.625 11.25L23.625 21.375C23.625 22.6176 22.6177 23.625 21.375 23.625L5.625 23.625C4.38236 23.625 3.375 22.6176 3.375 21.375L3.375 11.25C3.375 10.0073 4.38236 9 5.625 9Z" fill="#9DD1D5"/>
+                        </svg>
+                        Exportar
+                    </button>
+                    <a
+                        class="btn btn-primary"
+                        (click)="openModalForm(searchFiltersModal)"
+                        >
+                        Nuevo
+                    </a>
+                    </div>
+                </div>
+           
+
+
+
+        </div>
+        
+      </ng-container>
+</div>
+
+<!-- Export modal -->
+<ng-template tabindex="-1" class="modal fade"  #exportModal let-modal>
+    <div class="modal-lg">
+        <div class="">
+            <div class="modal-header">
+                <h3 class="modal-title">Exportar Documento</h3>
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" (click)="modal.close('save')" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor"/>
+                        <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor"/>
+                        </svg>
+                        </span>
+                </div>
+            </div>
+            <div class="modal-body">
+              <ng-select [(ngModel)]="exportType"
+              [class.is-valid]="exportType != null"
+              [class.is-invalid]="exportType == null">
+                <ng-option value="0">CSV</ng-option>
+                <ng-option value="1">PDF</ng-option>
+                <ng-option value="2">EXCEL</ng-option>
+              </ng-select>
+              <span *ngIf="exportType == null" class="text-danger"> Favor seleccionar el tipo de archivo a exportar</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" (click)="modal.close()">Cancelar</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="exportTable()"
+                    (click)="modal.close()"
+                    [disabled]="exportType == null"
+                    >Exportar</button>
+            </div>
+        </div>
+    </div>
+  </ng-template>
+<!--End Export Modal-->
+
+
+<!--Grid Registro Atenciones-->
+<div *ngIf="isShowGrid" class="d-flex flex-column w-100">
+
+    <div class="col-xl-12">
+        <div class="card card-xl-stretch mb-5 mb-xl-12 h-100">
+            <div #overlay class="overlay"><div><span class="loader-recalulo"></span><h4>Cargando Atenciones...</h4></div></div>
+
+            <div class="card-body py-3">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Grid Registro Atenciones end -->
+
+<!-- Registro de atenciones formulario -->
+<lib-registro-atenciones *ngIf="!isShowGrid" [userTypeAttention]="applicantType"></lib-registro-atenciones>
+<!-- End Registro de atenciones formulario -->
+
+<!-- Actions -->
+<ng-template #actionsNg class="btn-group d-block text-center" let-data="adtData">
+    <div class="d-flex justify-content-left flex-shrink-0">
+        <div ngbDropdown>
+            <button  type="button" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary" id="actionsBtn"  ngbDropdownToggle>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16"> <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/> </svg>
+            </button>
+
+            <div ngbDropdownMenu class="dropdown-menu">
+                <!-- Edit btn -->
+                <button ngbDropdownItem (click)="editAttention(data)">
+                    <span class="svg-icon svg-icon-3">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M0 2.10526C0 0.94256 0.94256 0 2.10526 0H9.176C9.6124 0 9.8224 0.535352 9.50224 0.832048L8.36448 1.88657C7.92072 2.29782 7.33808 2.52631 6.73304 2.52631H4.12632C3.24266 2.52631 2.52631 3.24266 2.52631 4.12632V11.8737C2.52631 12.7574 3.24266 13.4737 4.12632 13.4737H11.8737C12.7574 13.4737 13.4737 12.7574 13.4737 11.8737V9.40144C13.4737 8.7416 13.7454 8.11096 14.2247 7.6576L15.1902 6.74464C15.4962 6.45528 16 6.67224 16 7.09344V13.8947C16 15.0574 15.0574 16 13.8947 16H2.10526C0.94256 16 0 15.0574 0 13.8947V2.10526Z" fill="#009EF7"/>
+                            <path d="M7.13957 7.35075C6.82717 7.03835 6.82717 6.53179 7.13957 6.21937L12.8526 0.50635C13.4774 -0.11849 14.4905 -0.11849 15.1153 0.50635L15.4923 0.883318C16.1172 1.50816 16.1172 2.52122 15.4923 3.14606L9.77925 8.85907C9.46685 9.17147 8.96037 9.17147 8.64789 8.85907L7.13957 7.35075Z" fill="#009EF7"/>
+                            <path d="M5.45803 8.00524L4.8701 9.86796C4.69168 10.4332 5.16849 10.9894 5.75439 10.8995L7.91721 10.5675C8.37065 10.4979 8.55257 9.94236 8.22817 9.61796L6.38805 7.7778C6.0909 7.48068 5.58452 7.60452 5.45803 8.00524Z" fill="#009EF7"/>
+                        </svg>
+                    </span>
+                    <span class="editar"> Editar</span>                    
+                </button>
+                <!-- Edit btn end -->
+
+                <!-- View btn -->
+                <button ngbDropdownItem >
+                    <span class="svg-icon svg-icon-3">
+                        <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.00048 2.72725C6.70099 2.72725 5.64754 3.74478 5.64754 4.99998C5.64754 6.25517 6.70099 7.27271 8.00048 7.27271C9.29998 7.27271 10.3534 6.25517 10.3534 4.99998C10.3534 3.74478 9.29998 2.72725 8.00048 2.72725Z" fill="#EAB342"/>
+                            <path opacity="0.3" d="M0.171415 5.54375C1.05341 6.8225 2.19773 7.90875 3.48039 8.68531C4.89938 9.54531 6.46604 10 8.01069 10C9.42802 10 10.8217 9.62031 12.153 8.87156C13.5107 8.10812 14.7406 6.99281 15.809 5.55687C15.9296 5.39459 15.996 5.20236 15.9998 5.0046C16.0036 4.80685 15.9446 4.6125 15.8303 4.44625C14.95 3.15469 13.817 2.06687 12.5543 1.30094C11.1327 0.437499 9.60268 -9.53674e-07 8.01069 -9.53674e-07C6.4537 -9.53674e-07 4.88372 0.450936 3.47073 1.30375C2.18874 2.07781 1.04674 3.16812 0.168081 4.4575C0.0577269 4.61988 -0.000617981 4.80854 -2.67029e-05 5.00108C0.000564575 5.19362 0.0600653 5.38196 0.171415 5.54375ZM7.99936 2C8.63226 2 9.25094 2.17595 9.77717 2.50559C10.3034 2.83523 10.7136 3.30377 10.9558 3.85195C11.198 4.40013 11.2613 5.00333 11.1379 5.58527C11.0144 6.16721 10.7096 6.70176 10.2621 7.12132C9.81456 7.54088 9.24438 7.8266 8.62365 7.94236C8.00291 8.05811 7.3595 7.9987 6.77478 7.77164C6.19006 7.54458 5.69029 7.16006 5.33868 6.66671C4.98706 6.17336 4.79938 5.59334 4.79938 5C4.80035 4.20463 5.1378 3.4421 5.73771 2.87968C6.33761 2.31727 7.15097 2.00091 7.99936 2Z" fill="#EAB342"/>
+                            </svg>                               
+                    </span>
+                    <span class="visualizar"> Visualizar</span>
+                </button>
+                <!-- View btn end -->
+
+                <!-- Audit btn  -->
+                <button ngbDropdownItem>
+                    <span class="svg-icon svg-icon-3">
+                        <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.66658 0H1.99992C1.07944 0 0.333252 0.746192 0.333252 1.66667V15C0.333252 15.9205 1.07944 16.6667 1.99992 16.6667H11.9999C12.9204 16.6667 13.6666 15.9205 13.6666 15V5L8.66658 0Z" fill="#D46C30"/>
+                            <path d="M10.5154 11.8206L8.92599 10.2312C8.64434 9.94951 8.18769 9.94951 7.90605 10.2312C7.6244 10.5128 7.6244 10.9694 7.90605 11.2511L9.4955 12.8405C9.77715 13.1222 10.2338 13.1222 10.5154 12.8405C10.7971 12.5589 10.7971 12.1023 10.5154 11.8206Z" fill="#EBEFF1"/>
+                            <path d="M9.49992 8.33333C9.49992 10.1667 7.99992 11.6667 6.16659 11.6667C4.33325 11.6667 2.83325 10.1667 2.83325 8.33333C2.83325 6.5 4.33325 5 6.16659 5C7.99992 5 9.49992 6.5 9.49992 8.33333ZM6.16659 6.33333C5.06659 6.33333 4.16659 7.23333 4.16659 8.33333C4.16659 9.43333 5.06659 10.3333 6.16659 10.3333C7.26659 10.3333 8.16658 9.43333 8.16658 8.33333C8.16658 7.23333 7.26659 6.33333 6.16659 6.33333Z" fill="#EBEFF1"/>
+                            </svg>          
+                    </span>
+                    <span class="auditoria"> Auditoria</span>
+                </button>
+                <!-- Audit btn end -->
+
+
+                <!-- Delete btn -->
+                <button ngbDropdownItem (click)="showAlertDelete(data)">
+                    <span class="svg-icon svg-icon-3">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.45459 3.46155L3.36368 15.7692C3.40686 16.4804 4.01823 17 4.81823 17H13.1819C13.985 17 14.585 16.4804 14.6364 15.7692L15.5455 3.46155" stroke="#DB473C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 3.46155H17H1Z" fill="#949699"/>
+                            <path d="M1 3.46155H17" stroke="#DB473C" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"/>
+                            <path d="M6.09093 3.46154V1.92308C6.09051 1.80176 6.11844 1.68157 6.17312 1.56941C6.22779 1.45726 6.30813 1.35536 6.40951 1.26957C6.5109 1.18379 6.63133 1.11581 6.76387 1.06955C6.89642 1.02328 7.03846 0.999649 7.18184 1H10.8182C10.9616 0.999649 11.1036 1.02328 11.2362 1.06955C11.3687 1.11581 11.4891 1.18379 11.5905 1.26957C11.6919 1.35536 11.7723 1.45726 11.8269 1.56941C11.8816 1.68157 11.9095 1.80176 11.9091 1.92308V3.46154M9.00002 5.92308V14.5385M5.72729 5.92308L6.09093 14.5385M12.2727 5.92308L11.9091 14.5385" stroke="#EB5757" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <span class="eliminar"> Eliminar</span>
+                </button>
+                <!-- Delete btn end -->
+
+
+                <!-- Inspection Request -->
+                <button ngbDropdownItem (click)="openInspectionRequest(inspectionRequest,data)">
+                    <span class="svg-icon svg-icon-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="inspectionrequest"  viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                    </span>
+                    <span class="inspectionrequest"> Crear solicitud 
+                        de inspección</span>
+                </button>
+                <!-- Inspection Request end -->
+
+                
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Actions end -->
+
+<ng-template class="modal fade" #auditoriaModal tabindex="-1" let-modal>
+    <div class="modal-lg">
+        <div class="modal-header">
+            <h3 class="modal-title">Control de Auditoria</h3>
+            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" (click)="modal.close()" aria-label="Close">
+                <span class="svg-icon svg-icon-muted svg-icon-2hx">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor"/>
+                    <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor"/>
+                    </svg>
+                </span>
+            </div>    
+        </div>
+
+        <div class="modal-body">
+            <table class="table table-row-bordered table-rounded table-row-gray-300 align-middle gs-0 gy-4">
+                <thead>
+                    <tr class="fw-bold fs-6 border-bottom text-gray-900">
+                        <th class="">Fecha</th>
+                        <th class="">Hora</th>
+                        <th class="">Usuario</th>
+                        <th class="">Acción</th>
+                    </tr>
+                </thead>
+            </table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex justify-content-start flex-column">
+                                <span class="text-dark fw-bold fs-6"></span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="text-dark fw-bold d-block fs-6"></span>
+                    </td>
+                    <td>
+                        <span class="text-dark fw-bold d-block fs-6"></span>
+                    </td>                            
+                    <td>
+                        <span class="text-dark fw-bold d-block fs-6"></span>
+                    </td> 
+                </tr>
+            </tbody>
+        </div>
+    </div> 
+</ng-template>
+
+<!-- Inspection request modal -->
+<ng-template class="modal fade" #inspectionRequest tabindex="-1" let-modal>
+    <div class="" [formGroup]="formInspectionR">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Solicitud de Inspección</h4>
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2hx" (click)="modal.close()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor"/>
+                        <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor"/>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column justify-content-center">
+                <div class="modal-body">
+                    <div class="row mb-10">
+                        <div class="col-sm-12 col-lg-6">
+                           <label class="form-label">Oficina Regional</label>
+                           <ng-select
+                            [ngModel]="SelectedlRegionalOffice"
+                            formControlName="regionalOffice"
+                            [class.is-valid]="isValidFieldIR('regionalOffice')"
+                            [class.is-inva]="isInvalidFieldIR('regionalOffice')"
+                            (change)="getLocalOffices($event)"
+                            >
+                            <ng-option *ngFor="let item of regionalOffices" [value]="item.office.id">
+                                <span [title]="item.office.office">{{item.office.office}}</span>
+                            </ng-option>
+                        </ng-select>
+                        <p *ngIf="isInvalidFieldIR('regionalOffice')">
+                            <span *ngIf="getErrorFieldIR('regionalOffice', 'required')" 
+                            class="text-danger">Este campo es requerido.</span>
+                        </p>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-6">
+                            <label class="form-label">Oficina Local</label>
+                            <ng-select
+                            [ngModel]="SelectedlocalOffice"
+                            formControlName="localOffice"
+                            [class.is-valid]="isValidFieldIR('localOffice')"
+                            [class.is-invalid]="isInvalidFieldIR('localOffice')"
+                            >
+                            <ng-option *ngFor="let item of LocalOffices" [value]="item.office.id">
+                                <span [title]="item.office.office">{{item.office.office}}</span>
+                            </ng-option>
+                        </ng-select>
+                        <p *ngIf="isInvalidFieldIR('localOffice')">
+                            <span *ngIf="getErrorFieldIR('localOffice', 'required')" 
+                            class="text-danger">Este campo es requerido.</span>
+                        </p> 
+                        </div>
+                    </div>
+
+                    <div class="row mb-10">
+                        <div class="col-sm-12 col-lg-6">
+                            <label class="form-label">Cargo a Remitir</label>
+                            <select
+                            formControlName="staffId"></select>
+                            <div *ngIf="isInvalidFieldIR('staffId')">
+                                <span
+                                *ngIf="getErrorFieldIR('staffId', 'required')"
+                                class="text-danger"
+                                >Este campo es requerido
+                                </span>
+                            </div> 
+                         </div>
+
+                         <div class="col-sm-12 col-lg-6">
+                            <label class="form-label">Nombre</label>
+                            <select
+                            formControlName="managerName"></select>
+                            
+                            <div *ngIf="isInvalidFieldIR('managerName')">
+                                <span
+                                *ngIf="getErrorFieldIR('managerName', 'required')"
+                                class="text-danger"
+                                >Este campo es requerido
+                                </span>
+                            </div>
+                         </div>
+
+                    </div>
+
+                    <div class="row mb-10">
+                        <div class="col-sm-12">
+                            <label class="form-label">Comentario</label>
+                            <style type="text/css">
+                                textarea{
+                                    resize: none;
+                                }
+                            </style>
+                            <textarea
+                            formControlName="comment"
+                            [class.is-valid]="isValidFieldIR('comment')"
+                            class="form-control form-control-solid"
+                            name=""
+                            id="" cols="20" rows="3"
+                            maxlength="300"
+                            placeholder="Escriba aquí sus observaciones"></textarea>
+            
+                            <div *ngIf="isInvalidFieldIR('comment')">
+                                <span
+                                *ngIf="getErrorFieldIR('comment', 'required')"
+                                class="text-danger"
+                                >Este campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="modal-footer">
+                        <button
+                        type="button"
+                        class="btn btn-light"
+                        (click)="modal.close()">
+                        Cancelar</button>
+                        <button 
+                        type="button"
+                        class="btn btn-primary" 
+                        (click)="nextToGridInspectionR()"                       
+                        >Aceptar</button>
+                        
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- Inspection request modal end -->
+
+
+
+<!--Form Modal Filters-->
+<ng-template class=" modal fade" #searchFiltersModal tabindex="-1" let-modal>
+    <div class="" [formGroup]="formFilter">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Opciones del Filtro</h4>
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2hx" (click)="modal.close()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor"/>
+                        <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor"/>
+                        </svg>
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="d-flex flex-column justify-content-center">
+                <div class="modal-body">
+                    <div class="row mb-10">
+                        <div class="col-sm-12 col-lg-6">
+                            <label class="form-label">Tipo de Solicitante</label>
+                            <select
+                            [(ngModel)]="personType"
+                            formControlName="applicantType"
+                            [class.is-Valid]="isValidField('applicantType')"
+                            [class.is-Invalid]="isInvalidField('applicantType')"
+                            (change)="validatePersonType($event)"
+                            class="form-select form-select-solid">
+                            <option *ngFor="let item of applicantTypes"
+                            [value]="item.value">{{item.label}}</option>
+                            </select>
+                            <div *ngIf="isInvalidField('applicantType')">
+                                <span
+                                *ngIf="getErrorField('applicantType', 'required')"
+                                class="text-danger"
+                                >Este campo es requerido</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-sm-12 col-lg-6" *ngIf="fieldIdentityType">
+                            <label class="form-label">Tipo de Identificación</label>
+                            <select
+                            formControlName="identityType"
+                            [class.is-Valid]="isValidField('identityType')"
+                            [class.is-Invalid]="isInvalidField('identityType')"
+                            class="form-select form-select-solid"
+                            >
+                            <option value="DNI">DNI</option>
+                            <option value="PASAPORTE">PASAPORTE</option>
+                            <option value="CARNET_RESIDENTE">CARNET RESIDENTE</option>
+                            </select>
+                            <div *ngIf="isInvalidField('identityType')">
+                                <span
+                                *ngIf="getErrorField('identityType', 'required')"
+                                class="text-danger"
+                                >Este campo es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-6" *ngIf="fieldIdentityNumber">
+                            <label class="form-label">No. Identidad</label>
+                            <input
+                            formControlName="identitynumber"
+                            [class.is-valid]="isValidField('identitynumber')"
+                            [class.is-invalid]="isInvalidField('identitynumber')"
+                            [type]="identityNumberType"
+                            [placeholder]="identityNumberPlaceholder"
+                            [maxlength]="identityNumberMaxLength"
+                            class="form-control form-control-solid"
+                            >
+                            
+                            <div *ngIf="isInvalidField('identitynumber')">
+                                <span
+                                *ngIf="getErrorField('identitynumber', 'required')"
+                                class="text-danger"
+                                >Este campo es requerido
+                                </span>
+                                <span
+                                *ngIf="getErrorField('identitynumber', 'minlength') && typeIdentity ==='DNI'"
+                                class="text-danger"
+                                >Debe contener al menos 13 caracteres
+                                </span>
+                                <span
+                                *ngIf="getErrorField('identitynumber', 'maxlength') && typeIdentity === 'DNI'"
+                                class="text-danger"
+                                >Hay más de 14 caracteres
+                                </span>
+                                <span
+                                *ngIf="getErrorField('identitynumber', 'pattern') && typeIdentity ==='DNI'"
+                                class="text-danger"
+                                >Este campo es númerico
+                                </span>
+                                <span
+                                *ngIf="getErrorField('identitynumber', 'pattern') && typeIdentity === 'PASAPORTE'"
+                                class="text-danger"
+                                >Este numero de pasaporte no es válido
+                                </span>
+                                <span
+                                *ngIf="getErrorField('identitynumber', 'minlength') && typeIdentity ===  'PASAPORTE'"
+                                class="text-danger"
+                                >Debe contener al menos 7 caracteres y máximo 9 caracteres
+                                 La primera letra debe ser mayúscula.</span>
+                                 <span
+                                *ngIf="getErrorField('identitynumber', 'minlength') && typeIdentity === 'CARNET_RESIDENTE'"
+                                class="text-danger"
+                                > Debe contener al menos 13 caracteres.
+                                </span>
+                                
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-6" *ngIf="fieldRtn">
+                            <label class="form-label">No.RTN</label>
+                            <input
+                            formControlName="rtn"
+                            [class.is-valid]="isValidField('rtn')"
+                            [class.is-invalid]="isInvalidField('rtn')"
+                            placeholder="08019990927344"
+                            type="text"
+                            class="form-control form-control-solid"
+                            >
+
+                            <div *ngIf="isInvalidField('rtn')">
+                                <span
+                                *ngIf="getErrorField('rtn', 'required')"
+                                class="text-danger"
+                                >Este campo es requerido
+                                </span>
+                                <span
+                                *ngIf="getErrorField('rtn', 'minlength')"
+                                class="text-danger"
+                                >El minimo es de 14 dígitos
+                                </span>
+                                <span
+                                *ngIf="getErrorField('rtn', 'maxlength')"
+                                class="text-danger"
+                                >Hay más de 14 dígitos</span>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- En este boton va el redireccionamiento -->
+                    <div class="modal-footer">
+                        <button
+                        type="button"
+                        class="btn btn-light"
+                        (click)="modal.close()">
+                        Cancelar</button>
+                        <button 
+                        type="button"
+                        class="btn btn-primary"                        
+                        (click)="[nextToFormAttentions(), modal.close()]"
+                        >Buscar</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

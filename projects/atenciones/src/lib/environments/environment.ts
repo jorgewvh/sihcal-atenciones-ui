@@ -7,7 +7,7 @@ const API_SALARY_HISTORY = "https://development.svc-salary-history.ecms.setrass.
 const API_CALCULO_PRESTACIONES = "https://development.svc-calc-prestaciones.ecms.setrass.net"; // calculo-prestaciones
 const API_PATRONOS_EMPLEADORES = "https://development.svc-patronos-empleadores.ecms.setrass.net";
 const API_INSPECCION = "https://development.svc-inspection.ecms.setrass.net"; // Inspeccion
-const API_REGISTRO_ATENCIONES = "https://development.svc-inspection.ecms.setrass.net"
+const API_REGISTRO_ATENCIONES = "https://development.svc-attention.ecms.setrass.net"//Atenciones
 const API_STAFF = "https://development.svc-staff.ecms.setrass.net"; // Staff
 const API_FILE_MANAGER = "https://development.svc-file-manager.ecms.setrass.net/"; // File Manager
 

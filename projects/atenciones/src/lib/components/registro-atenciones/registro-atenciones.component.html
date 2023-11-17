@@ -1,0 +1,317 @@
+
+<div class="toolbar py-5 py-lg-15 px-0 d-flex flex-column">
+    <div id="kt_toolbar_container" class="w-100 d-flex justify-content-between">
+        <div class="page-title d-flex">
+          <h2 class="text-white fw-bolder">Registro de Atenciones</h2>
+        </div>
+      
+        <div class="d-flex flex-column align-items-end py-3 py-md-1">
+          <h6 class="text-white" style="font-weight: 700; text-transform:uppercase;" >{{getCurrentDateTime}}</h6>
+          <div class="d-flex align-items-center justify-content-between">
+            
+          </div>
+        </div>
+      </div>
+
+      <div id="breadcrumbs" class="w-100 d-flex justify-content-between">
+        <div class="page-title d-flex">
+          <ol class="breadcrumb text-muted fs-6 fw-semibold">
+            <li class="breadcrumb-item"><a routerLink="/atenciones" class="text-white fw-bolder">
+              Inicio</a></li>
+           
+          </ol>
+        </div>
+      </div>
+
+      <div></div>
+</div>
+<form class="form card shadow-sm" [formGroup]="formAttention">
+    <div #overlay class="overlay"><div><span class="loader-recalculo"><h4>Procesando.....</h4></span></div></div>
+    <div class="card-header">
+        <h3 class="card-title fs-3">Registro de Atencion</h3>
+       
+    </div>
+
+    
+
+    <div class="card-body">
+        <div class="row mb-10">
+            <div class="col-sm-12 col-md-3" *ngIf="userTypeAttention === 'TRABAJADOR'">
+                <label class="form-label">Tipo de Identificación</label>
+                <input
+                formControlName="identityType"
+                readonly="True"
+                class="form-control form-control-solid"
+                >
+            </div>
+    
+            <div class="col-sm-12 col-md-3"*ngIf="userTypeAttention === 'TRABAJADOR'">
+                <label class="form-label">Número de Identificación</label>
+                <input
+                formControlName="identitynumber"
+                readonly="True"
+                class="form-control form-control-solid">
+            </div>
+
+            <div class="col-sm-12 col-md-3" *ngIf="userTypeAttention === 'REPRESENTANTE_LEGAL' && 'APODERADO_LEGAL'">
+                <label class="form-label">Tipo de Identificación</label>
+                <input
+                formControlName="identificationType"
+                readonly="True"
+                class="form-control form-control-solid"
+                >
+            </div>
+    
+            <div class="col-sm-12 col-md-3" *ngIf="userTypeAttention === 'REPRESENTANTE_LEGAL' && 'APODERADO_LEGAL'">
+                <label class="form-label">Número de Identificación</label>
+                <input
+                formControlName="identificationNumber"
+                readonly="True"
+                class="form-control form-control-solid">
+            </div>
+
+            <div class="col-sm-12 col-md-3" *ngIf="userTypeAttention === 'PATRONO'">
+                <label class="form-label">Nombre o razón social</label>
+                <input
+                formControlName="legalName"
+                readonly="True"
+                class="form-control form-control-solid">
+            </div>
+
+            <div class="col-sm-12 col-md-3" *ngIf="userTypeAttention === 'PATRONO'">
+                <label class="form-label">Nombre comercial</label>
+                <input
+                formControlName="commercialName"
+                readonly="True"
+                class="form-control form-control-solid"
+                value="">
+            </div>
+    
+            <div class="col-sm-12 col-md-3">
+                <label class="form-label">RTN del Solicitante</label>
+                <input
+                formControlName="rtn"
+                class="form-control form-control-solid"
+                readonly="True">
+            </div>
+
+            <div class="col-sm-12 col-md-3" *ngIf="userTypeAttention === 'REPRESENTANTE_LEGAL' && 'APODERADO_LEGAL'">
+                <label class="form-label">Nombre del Solicitante</label>
+                <input
+                formControlName="fullName"
+                class="form-control form-control-solid"
+                readonly="True">
+            </div>
+    
+            <div class="col-sm-12 col-md-3" *ngIf="userTypeAttention === 'TRABAJADOR'">
+                <label class="form-label">Nombre del Solicitante</label>
+                <input
+                formControlName="name"
+                class="form-control form-control-solid"
+                readonly="True">
+            </div>
+
+            <div class="col-sm-12 col-lg-3" *ngIf="userTypeAttention === 'TRABAJADOR'">
+                <label class="form-label">Apellido del Solicitante</label>
+                <input
+                formControlName="lastName"
+                class="form-control form-control-solid"
+                readonly="True">
+            </div>
+
+            
+
+            <div class="col-sm-12 col-lg-3" *ngIf="userTypeAttention === 'SINDICATO'">
+                <label class="form-label">Sexo</label>
+                <input
+                formControlName="gender"
+                class="form-control form-control-solid"
+                readonly="True">
+            </div>
+    
+            <div class="col-sm-12 col-lg-3" *ngIf="userTypeAttention === 'TRABAJADOR'">
+                <label class="form-label">Télefono</label>
+                <input
+                formControlName="phone"
+                class="form-control form-control-solid"
+                readonly="True">
+            </div> 
+
+            <div class="col-sm-12 col-lg-3"  *ngIf="userTypeAttention === 'REPRESENTANTE_LEGAL' && 'APODERADO_LEGAL'">
+                <label class="form-label">Télefono</label>
+                <input
+                formControlName="phoneNumber"
+                class="form-control form-control-solid"
+                readonly="True">
+            </div> 
+            
+            <div class="col-sm-12 col-lg-3" >
+                <label class="form-label">Correo Electrónico</label>
+                <input
+                formControlName="email"
+                class="form-control form-control-solid"
+                readonly="True">
+            </div>
+
+            <div class="col-sm-12 col-lg-3">
+                <label class="form-label">Motivo</label>
+                <select
+                formControlName="reason"
+                [class.is-valid]="isValidField('reason')"
+                [class.is-invalid]="isInvalidField('reason')"
+                class="form-select form-select-solid"
+                >
+                <option value="DESPIDO">Despido</option>
+                <option value="RENUNCIA">Renuncia</option>
+                </select>
+
+                <div *ngIf="isInvalidField('reason')">
+                    <span
+                    *ngIf="getErrorField('reason', 'required')"
+                    class="text-danger">
+                    El campo es requerido.</span><br/>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-3" *ngIf="userTypeAttention === 'TRABAJADOR'">
+                <label class="form-label">Nombre de la Empresa</label>
+                <input
+                formControlName="employerId"
+                [class.is-valid]="isValidField('employerId')"
+                [class.is-invalid]="isInvalidField('employerId')"
+                class="form-control form-control-solid"
+                >
+                
+            </div>
+
+            <div class="col-sm-12 col-lg-3" *ngIf="userTypeAttention === 'PATRONO'">
+                <label class="form-label">Nombre del trabajador</label>
+                <input
+                formControlName="workerFullname"
+                [class.is-valid]="isValidField('workerFullname')"
+                [class.is-invalid]="isInvalidField('workerFullname')"
+                class="form-control form-control-solid"
+                >
+               <!--  <div *ngIf="isInvalidField('workerFullname')">
+                    <span
+                    *ngIf="getErrorField('workerFullname', 'required')"
+                    class="text-danger"
+                    >Este campo es requerido
+                    </span>
+                </div> -->
+            </div>
+
+            <div class="col-sm-12 col-lg-3" *ngIf="userTypeAttention === 'PATRONO'">
+                <label class="form-label">DNI del trabajador</label>
+                <input
+                formControlName="workerIdentity"
+                [class.is-valid]="isValidField('workerIdentity')"
+                [class.is-invalid]="isInvalidField('workerIdentity')"
+                class="form-control form-control-solid"
+                >
+                <!-- <div *ngIf="isInvalidField('workerIdentity')">
+                    <span
+                    *ngIf="getErrorField('workerIdentity', 'required')"
+                    class="text-danger"
+                    >Este campo es requerido
+                    </span>
+                </div> -->
+            </div>
+    
+    
+            <div class="col-sm-12 col-lg-6">
+                <label class="form-label">Tipo de Atención</label>
+                <ng-select
+                [(ngModel)]="seletedAttentionTypes"
+                formControlName="attentionType"
+                [class.is-valid]="isValidField('attentionType')"
+                [class.is-invalid]="isInvalidField('attentionType')"
+                class="form-control form-control-solid">
+                <ng-option *ngFor="let attention of attentionTypes" [value]="attention.id">{{attention.name}}</ng-option>
+                </ng-select>
+                <div *ngIf="isInvalidField('attentionType')">
+                    <span
+                    *ngIf="getErrorField('attentionType', 'required')"
+                    class="text-danger"
+                    >Este campo es requerido
+                    </span>
+                </div>
+                
+            </div>
+
+            
+        </div>
+
+        <div class="row mb-10">
+           
+           <div class="row mb-10">
+            <div class="col-sm-12">
+                <label class="form-label">Detalle de Atención</label>
+                <style type="text/css">
+                    textarea{
+                        resize: none;
+                    }
+                </style>
+                <textarea
+                formControlName="details"
+                [class.is-valid]="isValidField('details')"
+                class="form-control form-control-solid"
+                name=""
+                id="" cols="30" rows="5"
+                maxlength="500"
+                placeholder="Escriba aquí sus observaciones"></textarea>
+
+                <div *ngIf="isInvalidField('details')">
+                    <span
+                    *ngIf="getErrorField('details', 'required')"
+                    class="text-danger"
+                    >Este campo es requerido
+                    </span>
+                </div>
+            </div>
+           </div>
+        </div>
+
+        <div class="row mb-10">
+            <div class="col-sm-12">
+                <label class="form-label">Adjunte documentación soporte</label>
+                <div class="custom-dropzone" ngx-dropzone [accept]="'image/* pdf/*'" (change)="onSelect($event)">
+                    <ngx-dropzone-label>
+                        <div class="dz-message needsclick d-flex">
+                            <i class="fs-1x text-primary">
+                                <span class="svg-icon svg-icon-muted svg-icon-2x text-primary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM14.5 12L12.7 9.3C12.3 8.9 11.7 8.9 11.3 9.3L10 12H11.5V17C11.5 17.6 11.4 18 12 18C12.6 18 12.5 17.6 12.5 17V12H14.5Z" fill="currentColor"/>
+                                    <path d="M13 11.5V17.9355C13 18.2742 12.6 19 12 19C11.4 19 11 18.2742 11 17.9355V11.5H13Z" fill="currentColor"/>
+                                    <path d="M8.2575 11.4411C7.82942 11.8015 8.08434 12.5 8.64398 12.5H15.356C15.9157 12.5 16.1706 11.8015 15.7425 11.4411L12.4375 8.65789C12.1875 8.44737 11.8125 8.44737 11.5625 8.65789L8.2575 11.4411Z" fill="currentColor"/>
+                                    <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor"/>
+                                    </svg>
+                                 </span> 
+                            </i>
+                            <div class="ms-4 d-flex align-center">
+                                <h4 class="fs-5 fw-bold text-gray-900 mb-1">Suelta los archivos aquí o haga clic para cargar.</h4>
+                                <span class="fs-7 fw-semibold text text-gray-400">Carga hasta 10 archivos</span>
+                            </div>
+                        </div>
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-image-preview>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button
+        type="button" 
+        class="btn btn-light"
+        (click)="backToGrid()"
+        >Cancelar</button>
+
+        <button 
+        type="button" 
+        class="btn btn-primary"
+        (click)="nextToGrid()"
+        >Guardar</button>
+    </div>
+</form> 

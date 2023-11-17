@@ -15,6 +15,7 @@ import { LayoutService } from '@setrass-hn/layout-core';
 import { ToolbarService } from './toolbar.service';
 import PersonType from '../../models/enums/PersonType.enum';
 import PageType from '../../models/enums/PageType.enum';
+import { RegistroAtencionesPageComponent } from '../../pages/registro-atenciones-page/registro-atenciones-page.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -27,6 +28,7 @@ export class ToolbarComponent implements OnInit, AfterViewInit {
   pageTitleAttributes: {
     [attrName: string]: string | boolean;
   };
+
   toolbarContainerCssClasses: string = '';
   pageTitleCssClasses: string = '';
   personTypeArray: any[] = [];

@@ -11,6 +11,12 @@ export class BaseHttpService {
     }),
   };
 
+  public FilehttpOptions = {
+    headers: new HttpHeaders({
+      Accept: '*/*',
+    }),
+  };
+
   constructor(
     protected httpClient: HttpClient
   ) {}
@@ -75,6 +81,16 @@ export class BaseHttpService {
 
   protected deleteRequest<T>(endpoint: string):  Observable<T> {
     return this.httpClient.delete<T>(endpoint).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  protected postFileRequest<T>(endpoint: string, body:any):  Observable<T> {
+    return this.httpClient.post<T>(
+      endpoint,
+      body,
+      this.FilehttpOptions
+    ).pipe(
       catchError(this.handleError)
     );
   }

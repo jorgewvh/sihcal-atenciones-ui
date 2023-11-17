@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProxyRoutingModule } from './proxy-routing.module';
 import { ProxyComponent } from './proxy.component';
-import { IndicadoresModule } from '../../../../projects/atenciones/src/lib/atenciones.module';
+import { AtencionesModule } from '../../../../projects/atenciones/src/lib/atenciones.module';
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import { IndicadoresModule } from '../../../../projects/atenciones/src/lib/atenc
   imports: [
     CommonModule,
     ProxyRoutingModule,
-    IndicadoresModule
+    AtencionesModule
   ],
   exports: [],
   schemas:[

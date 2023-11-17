@@ -1,17 +1,20 @@
 <div
   id="kt_toolbar_container"
-  [ngClass]="toolbarContainerCssClasses"
   class="d-flex flex-stack flex-wrap"
 >
 
-  <!--
-    [ngClass]="toolbarContainerCssClasses"
+<!-- Pagina de Registro de Atenciones Grid -->
+<lib-registro-atenciones-page></lib-registro-atenciones-page>
+<!-- Final Pagina de Registro de Atenciones Grid -->
+
+  
+  <!--   [ngClass]="toolbarContainerCssClasses"
   <app-page-title
     #ktPageTitle
     class="page-title d-flex"
     [ngClass]="pageTitleCssClasses"
-  ></app-page-title>
-  --->
+  ></app-page-title> -->
+  -
   <div class="page-title d-flex flex-column">
     <ng-container *ngIf="pageType == 1">
       <h2 class="text-white fw-bolder">Registro de Solicitud</h2>
@@ -27,7 +30,7 @@
       <h2 class="text-white fw-bolder">Gestión de Solicitudes de Inspección</h2>
       <div class="d-flex">
         <ol class="breadcrumb text-muted fs-6 fw-semibold">
-          <li class="breadcrumb-item"><a routerLink="/inspeccion" class="text-white fw-bolder">
+          <li class="breadcrumb-item"><a routerLink="/atenciones" class="text-white fw-bolder">
             Inicio</a></li>
             <li class="breadcrumb-item">Gestión de Solicitudes de Inspección</li>
         </ol>
